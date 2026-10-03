@@ -1,0 +1,73 @@
+{
+  "_comment": "delegation/ORCHESTRATION.json — the run config for an autonomous build (D32). Copy into the consumer project's delegation/ folder and fill in. Read by scripts/orchestrate.mjs; also read by an auditor spawning workers natively. See prompts/AUTONOMOUS-BUILD.md Step 3.",
+
+  "harness": "generic",
+  "_harness": "Descriptive label only (claude-code | codex | generic ...). Which worker CLI actually runs is chosen by `adapter` below.",
+
+  "adapter": "",
+  "_adapter": "The worker adapter to use for every task: one KEY of `adapters` below (claude-code, cline, opencode, codex, gemini, relay). A ledger column named `Adapter` overrides it per task. The name is only ever a lookup key in the `adapters` whitelist — it is never put on a command line — so a name not listed here is refused. Leave empty if your harness spawns subagents natively; then orchestrate.mjs is not used at all.",
+
+  "adapters": {
+    "claude-code": {
+      "argv": ["claude", "-p", "{{POINTER}}", "--permission-mode", "acceptEdits", "--output-format", "json"],
+      "_note": "Verified 2026-10-02 against `claude --help` (-p/--print, --permission-mode acceptEdits, --output-format json). Not run end to end by the kit's tests."
+    },
+    "cline": {
+      "argv": ["cline", "--cwd", "{{PROJECT_ROOT}}", "--json", "{{POINTER}}"],
+      "_note": "Flags verified 2026-10-02 against `cline --help` (3.0.68): positional prompt, -c/--cwd, --json; auto-approve is the default. NOT run — it needs `cline auth` first. Add \"--timeout\", \"1800\" if you want a hard stop."
+    },
+    "opencode": {
+      "argv": ["opencode", "run", "--dir", "{{PROJECT_ROOT}}", "--auto", "{{POINTER}}"],
+      "_note": "Flags verified 2026-10-02 against `opencode run --help` (1.18.34): positional message, --dir, --auto (approves permissions not explicitly denied — dangerous; remove it to be asked). Keep the message LAST and never use -f before it: -f takes an array and swallows the message. NOT run."
+    },
+    "codex": {
+      "argv": ["codex", "exec", "--full-auto", "-s", "workspace-write", "{{POINTER}}"],
+      "_note": "UNVERIFIED here — codex is not installed on the machine that wrote this. Shape carried over from the kit's 2026-08-26 preset, minus the $(cat ...). Run `codex exec --help` and one task by hand first."
+    },
+    "gemini": {
+      "argv": ["gemini", "-p", "{{POINTER}}", "--output-format", "json"],
+      "_note": "UNVERIFIED here — gemini is not installed on the machine that wrote this. Shape carried over from the kit's 2026-08-26 preset, minus the $(cat ...). Run `gemini --help` and one task by hand first."
+    },
+    "relay": {
+      "type": "relay",
+      "timeoutSeconds": 3600,
+      "pollSeconds": 2,
+      "_note": "For a GUI or chat worker that has no CLI. orchestrate.mjs prints the PACKET.md path and waits for delegation/tasks/<id>/RESULT.json, then gives up with a clear message after timeoutSeconds. A relayed worker needs repo access (or the packet pasted whole) — the packet names absolute paths."
+    }
+  },
+  "_adaptersHelp": "Each adapter is {argv: [...]} — an ARGV ARRAY, run without a shell — or {type: \"relay\"}. argv placeholders: {{POINTER}} (a short \"Read <PACKET.md> and follow it exactly\" string), {{PACKET_FILE}}, {{PROJECT_ROOT}}, {{TASK_ID}}, {{NODE}} (this node binary). Optional: \"stdin\": \"packet\" | \"pointer\" feeds the packet text or the pointer on stdin instead of argv; \"timeoutSeconds\": N kills a worker that runs too long. Windows: npm-installed CLIs are .cmd shims; they are run through cmd.exe only when every argument is free of & % ^ ! and quotes, otherwise use `relay`. Before the first wave run ONE worker by hand on ONE task: a subtly wrong adapter fails identically for every task.",
+
+  "workerCmd": "",
+  "_workerCmd": "LEGACY. A command line used only when `adapter` is empty. It is split into words and run WITHOUT a shell: quotes group words; |, &, ;, <, >, $(...) and backticks are refused. {{TASK_ID}}, {{POINTER}}, {{PACKET_FILE}} and {{PROJECT_ROOT}} are substituted ({{PROMPT_FILE}} is an alias for {{PACKET_FILE}}). Prefer `adapters`.",
+
+  "_workerCmdPresets": {
+    "_note": "Verified 2026-10-02 against each installed tool's own --help; codex and gemini are not installed here and are unverified. These are the one-line shapes of the `adapters` entries above, for reading. Re-check before relying on them — this is exactly the kind of claim SPEC-AUTHOR.md's B-pass (check for rot) exists to catch.",
+    "claude-code": "claude -p <POINTER> --permission-mode acceptEdits --output-format json",
+    "cline": "cline --cwd <root> --json <POINTER>",
+    "opencode": "opencode run --dir <root> --auto <POINTER>",
+    "codex": "codex exec --full-auto -s workspace-write <POINTER>   (unverified here)",
+    "gemini": "gemini -p <POINTER> --output-format json   (unverified here)",
+    "relay": "print PACKET.md path; wait for RESULT.json"
+  },
+
+  "promptFile": "",
+  "_promptFile": "Optional. A worker prompt to render the packet from instead of the kit's prompts/WORKER-SESSION.md (path relative to the project root, or inside the kit). A ledger column named `Prompt file` overrides it per task. It may use {{TASK_ID}}, {{TASK_BRIEF}}, {{TOUCHED_FILES}}, {{ACCEPTANCE_CRITERIA}}, {{INTERFACE_CONTRACT}}, {{TIER_POLICY}}, {{PROJECT_ROOT}}, {{KIT_ROOT}}, {{PACKET_FILE}}, {{RESULT_FILE}}; any other {{...}} stops the run.",
+
+  "_packets": "Every dispatched task gets delegation/tasks/<id>/PACKET.md, rendered from its LEDGER row (Touched files), delegation/tasks/<id>/BRIEF.md (sections: Brief — or Context + Scope —, Acceptance criteria, Interface contract; the headings of templates/TASK-BRIEF.md work) and the worker prompt. A missing value stops the whole wave before anything is spawned. `node scripts/orchestrate.mjs --dry-run` shows which packets would render; `--render` writes them without spawning.",
+
+  "_remoteWorkers": "For execution mode `auditor-remote` (D35) the auditor runs here and the workers run on another provider's CLI (or, with `relay`, in a GUI a human operates). Watch for capability asymmetry: a weaker worker model needs a tighter brief and a narrower task, and it fails subtly and confidently rather than loudly. For a genuinely hard task — a from-scratch algorithm, a security-sensitive path, a concurrency question — put that one on a frontier model at its highest reasoning setting.",
+
+  "maxParallel": 2,
+  "_maxParallel": "How many workers run at once. Start at 2-3. More contention than you expect comes from the gate, not the code.",
+
+  "maxRetries": 1,
+  "_maxRetries": "How many times a failing task is re-issued to a FRESH worker before it is marked failed. The auditor never patches worker output itself — that would make it both author and reviewer.",
+
+  "tierPolicy": {
+    "autoDecide": ["T0", "T1"]
+  },
+  "_tierPolicy": "Which escalation tiers a worker may decide alone. T2 always stops and asks. Uncertainty resolves to T2, never T1 — see lib/patterns/tiered-escalation.md §1.2.",
+
+  "haltOn": [],
+  "_haltOn": "Conditions that stop the WHOLE run rather than parking one task. Keep this near-empty: a T2 parks its own task and its dependents, and everything else keeps building. Reasonable entries: 'gate-red-after-integration', 'repo-dirty-outside-task-scope'."
+}

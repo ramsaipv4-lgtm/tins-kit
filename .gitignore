@@ -1,0 +1,6 @@
+# the kit is plain files; nothing here is generated except what the scripts below write
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+.trash_kitstaging/
