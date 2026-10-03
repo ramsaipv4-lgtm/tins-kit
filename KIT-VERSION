@@ -2,6 +2,6 @@
 # The kit has no git (VERSIONING.md Rule 5): this file is its identity. A proposal patch
 # names the label+hash it was made against.
 label: 2.0.0
-hash: sha256:21108ae9190c260792372ea910e371e53c2c3434f526c87ccadb2695abdf323d
+hash: sha256:6d0b35573c9582720876d6b5cf896d1db0baec60137157fbab6106bcaeb85fac
 date: 2026-10-03
-files: 190
+files: 198
