@@ -172,6 +172,7 @@ export const KIT_ONLY_SCRIPTS = new Set([
   'kit-sync.mjs',
   'kit-new-project-shell.mjs',
   'new-project.mjs',
+  'harness-test.mjs',
   'rmrf.mjs',
   'private-to-public.mjs',
 ]);

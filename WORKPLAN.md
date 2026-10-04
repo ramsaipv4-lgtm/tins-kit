@@ -16,6 +16,7 @@
 | 4 | **Retrieval:** index `lib/<module>/` READMEs in `kit-coverage` (it never finds `money-as-decimal`); add the natural-language misses to `triggers` of the new patterns; re-measure on the three specs in the retrieval reviewer's report (miss 41% → 23% so far) | Round 2: "store money as integer paise" returned nothing | S |
 | 5 | **Small friction fixes:** `decision-log.mjs` flags vs headings (`--context` renders "What changed"); auto-claim inside `decision-log` for a single writer; `session.mjs ack` leaves a dirty tree; document that `close --gate-cmd` runs without a shell | Both builders | S |
 | 6 | **Housekeeping:** fence lint for the 11 prompts WP-C did not own; implement the `§8.13c` absorption check and an INDEX-completeness check in `validate.mjs` (each needs a SPEC row + selftest case — rule D24); generate counts in `AGENTS.md`/`INDEX.md` from `kit-listing --json` | Consistency review | M |
+| 11 | **`session close` should scan the lines the session added, not only the record.** Verified 2026-10-04: a fake `sk-ant-` key committed to `notes/hello.md` closed with `secrets: scanned clean`, while `scan-secrets.mjs notes/hello.md` refuses it. Fix: feed `git diff <base>..HEAD` added lines to the scanner in `close`, refuse (or `--allow-secrets-reviewed`) on a hit; selftest case; correct `CORE.md` line 60 ("secret scan is computed" is true of the record only) until then | Found by building `harness-test.mjs` | S |
 
 ## Day 2 — prove it somewhere it has not been proven (**these need you**)
 
