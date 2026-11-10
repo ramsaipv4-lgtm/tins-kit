@@ -17,7 +17,7 @@ const canon = (p) => {
   r = r.replace(/\\/g, '/'); return process.platform === 'win32' ? r.toLowerCase() : r;
 };
 /** True only inside the canonical kit source repository (the one whose code is running, not a vendored copy). */
-const central = (root) => canon(root) === canon(KIT_ROOT) && !existsSync(join(root, '.tins', 'kit', 'bin', 'kit.mjs'));
+export const central = (root) => canon(root) === canon(KIT_ROOT) && !existsSync(join(root, '.tins', 'kit', 'bin', 'kit.mjs'));
 const slug = (s) => /^[a-z0-9][a-z0-9-]{1,60}$/.test(s || '');
 
 function identity(root) {
@@ -117,6 +117,7 @@ function mergeFrontMatter(existing, incoming, opts) {
   const roots = [...new Set([...one(old.consumer_roots).split(','), ...one(incoming.consumer_roots).split(',')].map(one).filter(Boolean))];
   const triggers = [...new Set([...one(old.triggers).split(','), ...one(incoming.triggers).split(',')].map(one).filter(Boolean))];
   const active = old.status === 'active' || opts.activate;
+  if (opts.activate && roots.some((r) => r.startsWith('unversioned'))) throw new Error('active global knowledge needs Git-backed consumer roots; unversioned evidence can only be reviewed as tested');
   if (opts.activate && roots.length < 2) throw new Error('active global knowledge needs evidence from two independent consumer root commits');
   const license = opts.license || old.license || incoming.license;
   if (!license || license === 'UNLICENSED') throw new Error('promotion requires an explicit reusable --license');
@@ -136,7 +137,8 @@ export function promoteKnowledge(root, inboxFolder, id, opts) {
   if (!existsSync(path)) throw new Error(`no imported candidate ${rel}`);
   const incomingText = readFileSync(path, 'utf8'); const incoming = parseFrontMatter(incomingText);
   if (!incoming || incoming.fm.id !== id || incoming.fm.status !== 'candidate') throw new Error('imported item is not a candidate with the expected id');
-  if (!one(incoming.fm.consumer_roots).split(',').includes(manifest.first_commit)) throw new Error('candidate consumer root does not match its signed bundle manifest');
+  const candidateRoots = one(incoming.fm.consumer_roots).split(',').map(one).filter(Boolean);
+  if (candidateRoots.length !== 1 || candidateRoots[0] !== manifest.first_commit) throw new Error('candidate consumer root does not match its bundle manifest');
   const globalRel = `knowledge/${id}.md`; const globalPath = join(root, globalRel);
   const oldText = existsSync(globalPath) ? readFileSync(globalPath, 'utf8') : null;
   const old = oldText ? parseFrontMatter(oldText) : null;

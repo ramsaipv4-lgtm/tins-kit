@@ -84,7 +84,7 @@ export function lintKit(root = V.KIT_ROOT) {
     if (k.status === 'active' && (k.consumer_roots || '').split(',').map((x) => x.trim()).filter(Boolean).length < 2) problems.push(`knowledge/${name}: active needs two independent consumer_roots`);
     if (/^unlicensed$/i.test(k.license || '')) problems.push(`knowledge/${name}: global knowledge needs a reusable license`);
   }
-  const walk = (rel) => { const p = join(root, rel); return statSync(p).isDirectory() ? readdirSync(p).filter((n) => n !== '.git' && n !== 'node_modules' && n !== 'results').flatMap((n) => walk(rel ? `${rel}/${n}` : n)) : [rel]; };
+  const walk = (rel) => { const p = join(root, rel); return statSync(p).isDirectory() ? readdirSync(p).filter((n) => n !== '.git' && n !== 'node_modules' && n !== 'results' && n !== 'inbox').flatMap((n) => walk(rel ? `${rel}/${n}` : n)) : [rel]; };
   for (const f of walk('')) {
     if (/\.(png|jpg|gif|ico)$/.test(f)) continue;
     for (const x of scanText(f, readFileSync(join(root, f), 'utf8'))) problems.push(`secret-like text in kit tree: ${x.path}:${x.line} ${x.class}`);

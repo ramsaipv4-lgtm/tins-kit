@@ -80,6 +80,18 @@ A consumer project can never promote its own lesson. Promotion is a human act in
 What this does **not** prove: that the model read, understood or correctly applied the evidence.
 That is what the close note (reused / adapted / rejected, with reasons), review, and the tests are for.
 
+## Harvest lessons from existing projects
+
+```powershell
+# From D:\tins-kit\tins-kit-next; dry run writes nothing
+node bin/kit.mjs harvest D:\tins-kit\Jayshankar
+node bin/kit.mjs harvest D:\tins-kit\Jayshankar --write
+```
+
+The write command creates a local `inbox/harvest-…/REVIEW.md` queue with full provenance. It does not edit the source project or make candidates recallable. A human must promote each lesson; only then is it distributed to later projects.
+
+See `docs/HARVESTING.md` for the workflow and `docs/HARVEST-INVENTORY.md` for the initial 359-candidate workspace inventory covering 11 TINS sources.
+
 ## Verify the kit
 
 ```

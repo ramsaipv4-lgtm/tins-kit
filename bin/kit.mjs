@@ -16,6 +16,7 @@ const HELP = `kit — tins-kit. Commands (run inside a TINS project unless noted
   learn <id> [options]          record a local evidence-backed candidate (never self-promotes)
   knowledge index|list|eval     inspect/rebuild derived index; measure golden-query retrieval
   knowledge enable|export|import|promote   opt-in / consumer-to-central learning workflow
+  harvest <source-project> [--write]  dry-run extraction; --write fills central review inbox
   run [opts] -- <agent cmd...>  start a session, run the agent, close the session
   start [opts] | close [--note T] [--why T] [--handover] | status | abort
   check --base <ref>            merge-time verification of every commit in <ref>..HEAD
@@ -67,6 +68,7 @@ async function main() {
       const M = await import(lifecycle.includes(o._[0]) ? '../src/learning.mjs' : '../src/knowledge.mjs');
       return lifecycle.includes(o._[0]) ? M.learningCli(root(), o) : M.knowledgeCli(root(), o);
     }
+    case 'harvest': { const H = await import('../src/harvest.mjs'); return H.harvestCli(root(), o); }
     case 'start': { const r = root(); withTask(r, opts); const s = S.start(r, opts); console.log(`kit: session ${s.id} ${s.resumed ? 'resumed' : 'started'} (base ${s.base.slice(0, 10)})`); if (s.recall) console.log(formatRecall(s.recall)); return; }
     case 'close': return report(S.close(root(), opts));
     case 'run': { if (!o.rest.length) die('usage: kit run [opts] -- <agent command...>', 2); const r = root(); withTask(r, opts); return report(S.run(r, o.rest, opts)); }
