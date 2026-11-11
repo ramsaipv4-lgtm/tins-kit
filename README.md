@@ -4,7 +4,7 @@ Start with [SPEC.md](SPEC.md), then [the 369-candidate review bundle](review-inp
 
 This folder is a specification and review-input package, not an implemented kit. The folder name v3 is a working label, not a release number. Agent Control is an optional fresh-build specification only; no product code is included.
 
-This is the `main` branch of https://github.com/ramsaipv4-lgtm/tins-kit-next . It is a specification baseline, not a runnable kit release. Historical planning documents under docs retain their original source paths as context.
+This is the `main` branch of https://github.com/ramsaipv4-lgtm/tins-kit . It is a specification baseline, not a runnable kit release. Historical planning documents under docs retain their original source paths as context.
 
 ## Previous iterations
 
@@ -23,9 +23,9 @@ Read the supplied [version provenance](docs/version-evidence/START-HERE.md), [ol
 | Earlier document-based kits | [Jayshankar](https://github.com/ramsaipv4-lgtm/Jayshankar-tins-old) | Owner-identified completed consumer of the earlier kit; repository existence verified. Exact ZIP v1/v2/v3 identity has not been established. |
 | Intermediate document-kit v2 | [Coach LMS](https://github.com/ramsaipv4-lgtm/tins-lms) | The comparison pack explicitly attributes initial LMS Phase 1 to v2. The current repository evolved afterwards; this is not a claim that its current tree still uses v2. |
 | LMS verification companion | [LMS acceptance tests](https://github.com/ramsaipv4-lgtm/tins-lms-tests) | Linked by the LMS README; test companion, not another independently built product. |
-| Later document-kit orchestration | [Autonomous todo example](https://github.com/ramsaipv4-lgtm/tins-kit-next/tree/archive/document-kit-fork/examples/autonomous-todo-app) | Embedded worked example with run records, not proof of unattended reliability across projects. |
+| Later document-kit orchestration | [Autonomous todo example](https://github.com/ramsaipv4-lgtm/tins-kit/tree/archive/document-kit-fork/examples/autonomous-todo-app) | Embedded worked example with run records, not proof of unattended reliability across projects. |
 | Compact CLI / Playbook | [Beach Buggy worked-example overview](docs/version-evidence/PLAYBOOK-README.md) | The supplied pack says it came from the Beach Buggy learning-game build. No project repository URL was present in the supplied pack. |
-| Compact CLI | [Excalidraw kit snapshot](https://github.com/ramsaipv4-lgtm/tins-kit-next/tree/archive/compact-cli-kit) | Owner-identified classroom project; link is to its archived kit only, not to the product. Product URL remains unconfirmed. |
+| Compact CLI | [Excalidraw kit snapshot](https://github.com/ramsaipv4-lgtm/tins-kit/tree/archive/compact-cli-kit) | Owner-identified classroom project; link is to its archived kit only, not to the product. Product URL remains unconfirmed. |
 | tins-kit-next pilot | [Agent Control pilot evidence summary](docs/POST-PILOT-DESIGN.md) | Built with the pilot kit; local evidence/test review recorded. No Git remote is configured in the current local Agent Control repository. Product rejected for reuse; only extracted lessons inform the new iteration. |
 | Current main specification | No completed consumer yet | This branch is a future implementation baseline. |
 
@@ -35,9 +35,9 @@ TINS means "There Is No Source": the intended source of product behaviour is a r
 
 | Branch | Intended operating model | Where to begin |
 |---|---|---|
-| [Document kit](https://github.com/ramsaipv4-lgtm/tins-kit-next/tree/archive/document-kit-fork) | Interview, author/review spec, implement, log decisions, extract reusable patterns, sync reviewed kit updates | Branch README, CORE.md, PIPELINE.md |
-| [Compact CLI](https://github.com/ramsaipv4-lgtm/tins-kit-next/tree/archive/compact-cli-kit) | Compact instructions plus task scopes, worktrees, Git-derived sessions and blocking gates | Branch README and ENTRY.md |
-| [Pilot kit](https://github.com/ramsaipv4-lgtm/tins-kit-next/tree/archive/tins-kit-next-pilot) | Compact workflow plus committed pre-work recall and project-to-kit learning lifecycle | Branch README |
+| [Document kit](https://github.com/ramsaipv4-lgtm/tins-kit/tree/archive/document-kit-fork) | Interview, author/review spec, implement, log decisions, extract reusable patterns, sync reviewed kit updates | Branch README, CORE.md, PIPELINE.md |
+| [Compact CLI](https://github.com/ramsaipv4-lgtm/tins-kit/tree/archive/compact-cli-kit) | Compact instructions plus task scopes, worktrees, Git-derived sessions and blocking gates | Branch README and ENTRY.md |
+| [Pilot kit](https://github.com/ramsaipv4-lgtm/tins-kit/tree/archive/tins-kit-next-pilot) | Compact workflow plus committed pre-work recall and project-to-kit learning lifecycle | Branch README |
 | Current main | Specification for modular specs, evidence-bound completion, selective conversation memory, reconstruction and optional orchestration | SPEC.md and review-inputs/INDEX.md |
 
 The evolution is from a documented development process, to more mechanical enforcement, to enforced retrieval, and now to a proposed evidence-driven factory. Earlier generations already contain scripts; "document kit" does not mean prose-only. A green gate verifies its programmed checks, not complete product correctness.
