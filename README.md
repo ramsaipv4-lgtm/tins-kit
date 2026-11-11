@@ -8,6 +8,29 @@ This is the `main` branch of https://github.com/ramsaipv4-lgtm/tins-kit-next . I
 
 ## Previous iterations
 
+### Version naming clarified by the supplied archives
+
+The owner's two predecessor packages are `tins-kit-old-vs-new.zip` and `TINS-PLAYBOOK-PACK.zip`. They are not simply two internally numbered releases. The comparison package labels its `old/tins-kit` snapshot **v1**, its `new/tins-kit` snapshot **v3**, and identifies **v2** as an intermediate Git revision (`9c308e5`, `tins-kit/` in the original Takeu-Forward repository), used for the initial LMS build but not included as a full tree. These historical v1/v2/v3 labels are unrelated to this workspace's working folder name `tins-kit-v3`.
+
+The Playbook Pack documents the later compact CLI workflow: Windows environment checks, dispatch wrappers, task scopes, independent claim verification, and Beach Buggy worked examples. It is not evidence that every bundled pattern was tested. The existing archive branches preserve workspace snapshots; they are not claimed byte-identical to the ZIP snapshots.
+
+Read the supplied [version provenance](docs/version-evidence/START-HERE.md), [old/new comparison](docs/version-evidence/COMPARISON.md), [LMS field evidence](docs/version-evidence/FIELD-EVIDENCE.md), and [Playbook overview](docs/version-evidence/PLAYBOOK-README.md). These are historical reference documents, not instructions for the current builder; their relative links may refer to files only in the original ZIPs. Historical pass counts are reported by those documents, not freshly rerun here.
+
+### Example projects and evidence
+
+| Kit lineage | Project/example | What the evidence establishes |
+|---|---|---|
+| Earlier document-based kits | [Jayshankar](https://github.com/ramsaipv4-lgtm/Jayshankar-tins-old) | Owner-identified completed consumer of the earlier kit; repository existence verified. Exact ZIP v1/v2/v3 identity has not been established. |
+| Intermediate document-kit v2 | [Coach LMS](https://github.com/ramsaipv4-lgtm/tins-lms) | The comparison pack explicitly attributes initial LMS Phase 1 to v2. The current repository evolved afterwards; this is not a claim that its current tree still uses v2. |
+| LMS verification companion | [LMS acceptance tests](https://github.com/ramsaipv4-lgtm/tins-lms-tests) | Linked by the LMS README; test companion, not another independently built product. |
+| Later document-kit orchestration | [Autonomous todo example](https://github.com/ramsaipv4-lgtm/tins-kit-next/tree/archive/document-kit-fork/examples/autonomous-todo-app) | Embedded worked example with run records, not proof of unattended reliability across projects. |
+| Compact CLI / Playbook | [Beach Buggy worked-example overview](docs/version-evidence/PLAYBOOK-README.md) | The supplied pack says it came from the Beach Buggy learning-game build. No project repository URL was present in the supplied pack. |
+| Compact CLI | [Excalidraw kit snapshot](https://github.com/ramsaipv4-lgtm/tins-kit-next/tree/archive/compact-cli-kit) | Owner-identified classroom project; link is to its archived kit only, not to the product. Product URL remains unconfirmed. |
+| tins-kit-next pilot | [Agent Control pilot evidence summary](docs/POST-PILOT-DESIGN.md) | Built with the pilot kit; local evidence/test review recorded. No Git remote is configured in the current local Agent Control repository. Product rejected for reuse; only extracted lessons inform the new iteration. |
+| Current main specification | No completed consumer yet | This branch is a future implementation baseline. |
+
+Public project links were checked through GitHub metadata; accessibility does not establish product completeness. Missing repository URLs are left explicit rather than guessed. The 369-candidate review bundle is unchanged by this historical documentation addition.
+
 TINS means "There Is No Source": the intended source of product behaviour is a readable specification, with code produced and maintained to match it. In these iterations an LLM performs that work; none is a deterministic compiler or a guarantee that deleting code will reproduce the same application. Git carries decisions and continuity between agents.
 
 | Branch | Intended operating model | Where to begin |
