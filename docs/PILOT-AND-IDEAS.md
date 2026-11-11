@@ -1,5 +1,7 @@
 # Pilot plan and deferred ideas
 
+Follow-up: [post-pilot evidence review and next design](POST-PILOT-DESIGN.md), recorded 2026-11-11.
+
 Recorded 2026-11-10 from the owner's conversation. This is a planning record, not a claim that the proposed capabilities are implemented.
 
 ## Purpose
