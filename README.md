@@ -1,5 +1,19 @@
 # tins-kit-next — evidence-first software factory kit
 
+## Archived iteration: how it was intended to work
+
+This branch preserves the runnable pilot kit, not the newer specification on main. It extends the compact CLI with required pre-work retrieval receipts, local lessons, central review/import/export and read-only harvesting of older projects. The underlying application framework remains the project's choice.
+
+The expected lifecycle is: interview and agree on product intent; scaffold a separate application repository; consult relevant precedents; author SPEC.md decisions and acceptance rows; start scoped implementation sessions; test and close them; verify integration; capture lessons; review reusable lessons in the master kit; distribute an explicit kit update. The CLI governs portions of this lifecycle, but does not automatically conduct interviews, create mockups, dispatch workers or judge product quality.
+
+A new model reads the project's AGENTS.md and docs/next.md, checks doctor/status, then resumes the next scoped task. Each project vendors plain files under .tins/kit/ and retains its own Git history. Never edit the vendored kit to make its gate pass; fix or upgrade the master distribution explicitly.
+
+Knowledge progresses from local candidate to central review and later distribution. The implemented lifecycle calls the first promoted level tested and uses two consumer roots for active. These labels are weaker evidence than their names suggest: editorial review is not execution, and two repositories can contain the same copied pattern. The next iteration explicitly separates review from verification. Harvested inbox entries remain excluded from recall until promoted.
+
+The pilot kit previously passed 33 CLI regression tests. Those tests do not establish unattended factory reliability. Its worktree and relay mechanisms enable collaboration but are not an autonomous scheduler. Remote approvals, sandbox/cloud orchestration and reconstruction remain future work. Commands below describe this branch, not main.
+
+See [main's comparison and specification](https://github.com/ramsaipv4-lgtm/tins-kit-next) for the next iteration. The remainder preserves the operational guide for this implementation.
+
 Zero dependencies: Node >= 18 and git. `kit` = `node .tins/kit/bin/kit.mjs` inside a project,
 or `node D:\tins-kit\tins-kit-next\bin\kit.mjs` for the canonical kit itself.
 
