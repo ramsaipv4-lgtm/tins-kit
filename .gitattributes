@@ -1,0 +1,2 @@
+# Candidate hashes describe original bytes; preserve them across platforms.
+review-inputs/candidates/** -text
