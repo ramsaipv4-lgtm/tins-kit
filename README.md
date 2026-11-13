@@ -25,7 +25,7 @@ Read the supplied [version provenance](docs/version-evidence/START-HERE.md), [ol
 | LMS verification companion | [LMS acceptance tests](https://github.com/ramsaipv4-lgtm/tins-lms-tests) | Linked by the LMS README; test companion, not another independently built product. |
 | Later document-kit orchestration | [Autonomous todo example](https://github.com/ramsaipv4-lgtm/tins-kit/tree/archive/document-kit-fork/examples/autonomous-todo-app) | Embedded worked example with run records, not proof of unattended reliability across projects. |
 | Compact CLI / Playbook | [Beach Buggy worked-example overview](docs/version-evidence/PLAYBOOK-README.md) | The supplied pack says it came from the Beach Buggy learning-game build. No project repository URL was present in the supplied pack. |
-| Compact CLI | [Excalidraw kit snapshot](https://github.com/ramsaipv4-lgtm/tins-kit/tree/archive/compact-cli-kit) | Owner-identified classroom project; link is to its archived kit only, not to the product. Product URL remains unconfirmed. |
+| Compact CLI | [Excalidraw kit snapshot](https://github.com/ramsaipv4-lgtm/tins-kit/tree/archive/compact-cli-kit) | Owner-identified classroom project; link is to its archived kit only, not to the product. Product URL (https://github.com/Sairampv98/excalidraw-teacher-help.git) |
 | tins-kit-next pilot | [Agent Control pilot evidence summary](docs/POST-PILOT-DESIGN.md) | Built with the pilot kit; local evidence/test review recorded. No Git remote is configured in the current local Agent Control repository. Product rejected for reuse; only extracted lessons inform the new iteration. |
 | Current main specification | No completed consumer yet | This branch is a future implementation baseline. |
 
